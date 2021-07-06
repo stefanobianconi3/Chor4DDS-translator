@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xs="http://www.w3.org/2001/XMLSchema" id="_tTv5YOycEeiHGOQ2NkJZNQ" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn2:message id="Message_0668tcz" name="New Topic 5" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" />
+  <bpmn2:message id="Message_06rbz50" name="New Topic 4" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" />
+  <bpmn2:message id="Message_0fwkt49" name="New Topic 3" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" />
+  <bpmn2:message id="Message_1ic6b3y" name="New Topic 2" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" />
+  <bpmn2:message id="Message_1d1djl5" name="New Topic 2" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" />
+  <bpmn2:message id="Message_170s47p" name="Humidity" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1">
+    <bpmn2:extensionElements>
+      <camunda:formData>
+        <camunda:formField id="values" type="float" />
+      </camunda:formData>
+    </bpmn2:extensionElements>
+  </bpmn2:message>
+  <bpmn2:message id="Message_04chouf" name="Activated" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1">
+    <bpmn2:extensionElements>
+      <camunda:formData>
+        <camunda:formField id="active" type="boolean" />
+      </camunda:formData>
+    </bpmn2:extensionElements>
+  </bpmn2:message>
+  <bpmn2:message id="Message_1ap8g9n" name="Temperature" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1">
+    <bpmn2:extensionElements>
+      <camunda:formData>
+        <camunda:formField id="degree" type="float" />
+        <camunda:formField id="zone" type="string" isKey="true" />
+        <camunda:formField id="description" type="string" />
+      </camunda:formData>
+    </bpmn2:extensionElements>
+  </bpmn2:message>
+  <bpmn2:choreography id="Choreography">
+    <bpmn2:participant id="Participant_01lbbx4" name="Sensor" />
+    <bpmn2:participant id="Participant_0xnrmdh" name="Motor" />
+    <bpmn2:participant id="Participant_0xwfv2d" name="Thermostat" />
+    <bpmn2:messageFlow id="MessageFlow_03fdbv1" sourceRef="Participant_0xnrmdh" targetRef="Participant_01lbbx4" messageRef="Message_04chouf" />
+    <bpmn2:messageFlow id="MessageFlow_15yr8qe" sourceRef="Participant_0xwfv2d" targetRef="Participant_01lbbx4" messageRef="Message_04chouf" />
+    <bpmn2:messageFlow id="MessageFlow_0ew9mx8" sourceRef="Participant_01lbbx4" targetRef="Participant_0xnrmdh" messageRef="Message_1ap8g9n" FilterReceiver="degree &#60; 26" />
+    <bpmn2:messageFlow id="MessageFlow_0zdquek" sourceRef="Participant_01lbbx4" targetRef="Participant_0xwfv2d" messageRef="Message_1ap8g9n" />
+    <bpmn2:messageFlow id="MessageFlow_0b72cn1" sourceRef="Participant_0xwfv2d" targetRef="Participant_0xnrmdh" messageRef="Message_170s47p" />
+    <bpmn2:messageFlow id="MessageFlow_1xlo8rm" sourceRef="Participant_0xwfv2d" targetRef="Participant_01lbbx4" messageRef="Message_170s47p" />
+    <bpmn2:messageFlow id="MessageFlow_12hvgw0" sourceRef="Participant_0xnrmdh" targetRef="Participant_01lbbx4" messageRef="Message_04chouf" />
+    <bpmn2:messageFlow id="MessageFlow_1mdncg8" sourceRef="Participant_01lbbx4" targetRef="Participant_0xnrmdh" messageRef="Message_1ap8g9n" FilterReceiver="degree &#62; 10" />
+    <bpmn2:startEvent id="Event_1ra2kqa">
+      <bpmn2:outgoing>Flow_01cpmg2</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:choreographyTask id="ChoreographyTask_0f7kc02" name="send temp" initiatingParticipantRef="Participant_01lbbx4" camunda:dp="0" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosownershipstrength="0" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" camunda:qostimebasedfilter="0">
+      <bpmn2:incoming>Flow_01cpmg2</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_133vdhc</bpmn2:outgoing>
+      <bpmn2:participantRef>Participant_01lbbx4</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_0xnrmdh</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_12hvgw0</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>MessageFlow_1mdncg8</bpmn2:messageFlowRef>
+    </bpmn2:choreographyTask>
+    <bpmn2:sequenceFlow id="Flow_01cpmg2" sourceRef="Event_1ra2kqa" targetRef="ChoreographyTask_0f7kc02" />
+    <bpmn2:parallelGateway id="Gateway_0pzwwc3">
+      <bpmn2:incoming>Flow_133vdhc</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1bshatk</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_07e72n1</bpmn2:outgoing>
+    </bpmn2:parallelGateway>
+    <bpmn2:sequenceFlow id="Flow_133vdhc" sourceRef="ChoreographyTask_0f7kc02" targetRef="Gateway_0pzwwc3" />
+    <bpmn2:choreographyTask id="ChoreographyTask_1hih2ln" name="New Activity" initiatingParticipantRef="Participant_0xwfv2d" camunda:dp="1" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosownershipstrength="0" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" camunda:qostimebasedfilter="0">
+      <bpmn2:incoming>Flow_1bshatk</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1yheirm</bpmn2:outgoing>
+      <bpmn2:participantRef>Participant_0xwfv2d</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_01lbbx4</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_1xlo8rm</bpmn2:messageFlowRef>
+    </bpmn2:choreographyTask>
+    <bpmn2:sequenceFlow id="Flow_1bshatk" sourceRef="Gateway_0pzwwc3" targetRef="ChoreographyTask_1hih2ln" />
+    <bpmn2:choreographyTask id="ChoreographyTask_0qise0c" name="New Activity" initiatingParticipantRef="Participant_0xwfv2d" camunda:dp="2" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosownershipstrength="0" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" camunda:qostimebasedfilter="0">
+      <bpmn2:incoming>Flow_07e72n1</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0jp6tuj</bpmn2:outgoing>
+      <bpmn2:participantRef>Participant_0xwfv2d</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_0xnrmdh</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_0b72cn1</bpmn2:messageFlowRef>
+    </bpmn2:choreographyTask>
+    <bpmn2:sequenceFlow id="Flow_07e72n1" sourceRef="Gateway_0pzwwc3" targetRef="ChoreographyTask_0qise0c" />
+    <bpmn2:choreographyTask id="ChoreographyTask_1gtk7gj" name="New Activity" initiatingParticipantRef="Participant_01lbbx4" camunda:dp="1" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosownershipstrength="0" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" camunda:qostimebasedfilter="0">
+      <bpmn2:incoming>Flow_1yheirm</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1kkpc8w</bpmn2:outgoing>
+      <bpmn2:participantRef>Participant_01lbbx4</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_0xwfv2d</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_15yr8qe</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>MessageFlow_0zdquek</bpmn2:messageFlowRef>
+    </bpmn2:choreographyTask>
+    <bpmn2:sequenceFlow id="Flow_1yheirm" sourceRef="ChoreographyTask_1hih2ln" targetRef="ChoreographyTask_1gtk7gj" />
+    <bpmn2:choreographyTask id="ChoreographyTask_02o2yii" name="New Activity" initiatingParticipantRef="Participant_01lbbx4" camunda:dp="2" camunda:qosreliability="best_effort" camunda:qosdurability="volatile" camunda:qosdeadline="INFINITY" camunda:qosownership="shared" camunda:qosownershipstrength="0" camunda:qosliveliness="automatic" camunda:qoslivelinessduration="INFINITY" camunda:qoshistory="keep_last" camunda:qoshistorydepth="1" camunda:qostimebasedfilter="0">
+      <bpmn2:incoming>Flow_0jp6tuj</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17m7nym</bpmn2:outgoing>
+      <bpmn2:participantRef>Participant_01lbbx4</bpmn2:participantRef>
+      <bpmn2:participantRef>Participant_0xnrmdh</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_03fdbv1</bpmn2:messageFlowRef>
+      <bpmn2:messageFlowRef>MessageFlow_0ew9mx8</bpmn2:messageFlowRef>
+    </bpmn2:choreographyTask>
+    <bpmn2:sequenceFlow id="Flow_0jp6tuj" sourceRef="ChoreographyTask_0qise0c" targetRef="ChoreographyTask_02o2yii" />
+    <bpmn2:endEvent id="Event_09ca9qh">
+      <bpmn2:incoming>Flow_17m7nym</bpmn2:incoming>
+      <bpmn2:incoming>Flow_1kkpc8w</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_17m7nym" sourceRef="ChoreographyTask_02o2yii" targetRef="Event_09ca9qh" />
+    <bpmn2:sequenceFlow id="Flow_1kkpc8w" sourceRef="ChoreographyTask_1gtk7gj" targetRef="Event_09ca9qh" />
+  </bpmn2:choreography>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Choreography_1" bpmnElement="Choreography">
+      <bpmndi:BPMNShape id="Event_1ra2kqa_di" bpmnElement="Event_1ra2kqa">
+        <dc:Bounds x="412" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ChoreographyTask_0f7kc02_di" bpmnElement="ChoreographyTask_0f7kc02">
+        <dc:Bounds x="500" y="280" width="140" height="110" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1hxenr3" bpmnElement="Participant_01lbbx4" isMessageVisible="true" participantBandKind="top_initiating" choreographyActivityShape="ChoreographyTask_0f7kc02_di">
+        <dc:Bounds x="500" y="280" width="140" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1r5rpy0" bpmnElement="Participant_0xnrmdh" isMessageVisible="true" participantBandKind="bottom_non_initiating" choreographyActivityShape="ChoreographyTask_0f7kc02_di">
+        <dc:Bounds x="500" y="370" width="140" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_01cpmg2_di" bpmnElement="Flow_01cpmg2">
+        <di:waypoint x="448" y="320" />
+        <di:waypoint x="499" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_0pzwwc3_di" bpmnElement="Gateway_0pzwwc3">
+        <dc:Bounds x="695" y="310" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_133vdhc_di" bpmnElement="Flow_133vdhc">
+        <di:waypoint x="641" y="335" />
+        <di:waypoint x="695" y="335" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ChoreographyTask_1hih2ln_di" bpmnElement="ChoreographyTask_1hih2ln">
+        <dc:Bounds x="800" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0gwll77" bpmnElement="Participant_0xwfv2d" isHorizontal="true" isMessageVisible="true" participantBandKind="top_initiating" choreographyActivityShape="ChoreographyTask_1hih2ln_di">
+        <dc:Bounds x="960" y="230" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_13qriqq" bpmnElement="Participant_01lbbx4" isMessageVisible="false" participantBandKind="bottom_non_initiating" choreographyActivityShape="ChoreographyTask_1hih2ln_di">
+        <dc:Bounds x="800" y="230" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1bshatk_di" bpmnElement="Flow_1bshatk">
+        <di:waypoint x="720" y="310" />
+        <di:waypoint x="720" y="210" />
+        <di:waypoint x="799" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ChoreographyTask_0qise0c_di" bpmnElement="ChoreographyTask_0qise0c">
+        <dc:Bounds x="800" y="410" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0kpy8fc" bpmnElement="Participant_0xwfv2d" isMessageVisible="true" participantBandKind="top_initiating" choreographyActivityShape="ChoreographyTask_0qise0c_di">
+        <dc:Bounds x="800" y="410" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1uqvmoj" bpmnElement="Participant_0xnrmdh" isMessageVisible="false" participantBandKind="bottom_non_initiating" choreographyActivityShape="ChoreographyTask_0qise0c_di">
+        <dc:Bounds x="800" y="470" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_07e72n1_di" bpmnElement="Flow_07e72n1">
+        <di:waypoint x="720" y="360" />
+        <di:waypoint x="720" y="450" />
+        <di:waypoint x="799" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ChoreographyTask_1gtk7gj_di" bpmnElement="ChoreographyTask_1gtk7gj">
+        <dc:Bounds x="960" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0jnkzkp" bpmnElement="Participant_01lbbx4" isMessageVisible="true" participantBandKind="top_initiating" choreographyActivityShape="ChoreographyTask_1gtk7gj_di">
+        <dc:Bounds x="960" y="170" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_17qy1pu" bpmnElement="Participant_0xwfv2d" isMessageVisible="true" participantBandKind="bottom_non_initiating" choreographyActivityShape="ChoreographyTask_1gtk7gj_di">
+        <dc:Bounds x="960" y="230" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1yheirm_di" bpmnElement="Flow_1yheirm">
+        <di:waypoint x="901" y="210" />
+        <di:waypoint x="959" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ChoreographyTask_02o2yii_di" bpmnElement="ChoreographyTask_02o2yii">
+        <dc:Bounds x="960" y="410" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1ebniew" bpmnElement="Participant_01lbbx4" isMessageVisible="true" participantBandKind="top_initiating" choreographyActivityShape="ChoreographyTask_02o2yii_di">
+        <dc:Bounds x="960" y="410" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0bydavg" bpmnElement="Participant_0xnrmdh" isMessageVisible="true" participantBandKind="bottom_non_initiating" choreographyActivityShape="ChoreographyTask_02o2yii_di">
+        <dc:Bounds x="960" y="470" width="100" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0jp6tuj_di" bpmnElement="Flow_0jp6tuj">
+        <di:waypoint x="901" y="450" />
+        <di:waypoint x="959" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_09ca9qh_di" bpmnElement="Event_09ca9qh">
+        <dc:Bounds x="1112" y="317" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17m7nym_di" bpmnElement="Flow_17m7nym">
+        <di:waypoint x="1061" y="450" />
+        <di:waypoint x="1086" y="450" />
+        <di:waypoint x="1086" y="335" />
+        <di:waypoint x="1112" y="335" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kkpc8w_di" bpmnElement="Flow_1kkpc8w">
+        <di:waypoint x="1061" y="210" />
+        <di:waypoint x="1086" y="210" />
+        <di:waypoint x="1086" y="335" />
+        <di:waypoint x="1112" y="335" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
